@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+BASEPATH="${BASH_SOURCE%/*}"
+
+main () {
+
+  # Iterate over the results and do something per result.
+  while read result; do
+    if [ ! -z "$result" ]; then
+      # Extract the subdomain from the result
+      subdomain=`echo ${result} | awk '{print $3}'`
+      subdomain=`basename ${subdomain}`
+
+      echo "We need to do something about ${subdomain}"
+    fi
+  done <${BASEPATH}/../results.txt
+}
+
+main

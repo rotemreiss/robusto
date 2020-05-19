@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+
+ ################################################################################
+#                                                                                #
+# Create Jira issues for found subdomain takeovers.                              #
+# Requires https://github.com/rotemreiss/jTrack.                                 #
+# Make sure jTrack can be ran directly as `jtrack`,                              #
+#  see https://github.com/rotemreiss/jTrack#want-to-run-jtrack-from-anywhere-np  #
+#                                                                                #
+ ################################################################################
+
+BASEPATH="${BASH_SOURCE%/*}"
+
+main () {
+
+  # Iterate over the results and create one Jira issue per result.
+  while read result; do
+    if [ ! -z "$result" ]; then
+      # Extract the subdomain from the result
+      subdomain=`echo ${result} | awk '{print $3}'`
+      subdomain=`basename ${subdomain}`
+
+      # Create the Jira ticket if not already exists
+      jtrack -p my-project -i ${subdomain} \
+        -s "Subdomain takeover is possible at ${subdomain}" \
+        -d "${result}" \
+        -se
+    fi
+  done <${BASEPATH}/../results.txt
+}
+
+main
