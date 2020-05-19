@@ -34,7 +34,7 @@ run_httprobe () {
 }
 
 run_nuclei () {
-  docker run -v ${PWD}/nuclei-templates:/go/src/app/ -i rotemreiss/nuclei -t ./subdomain-takeover/detect-all-takeovers.yaml
+  docker run -v ${BASEPATH}/nuclei-templates:/go/src/app/ -i rotemreiss/nuclei -t ./subdomain-takeover/detect-all-takeovers.yaml
 }
 
 scan() {
