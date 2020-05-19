@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
-BASEPATH="${BASH_SOURCE%/*}"
+BASEPATH=`dirname $0`
+# Convert the script's path to absolute path.
+BASEPATH=$(cd -- "$BASEPATH" && pwd)
 
 main () {
 
