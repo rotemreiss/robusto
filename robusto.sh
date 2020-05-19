@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-BASEPATH="${BASH_SOURCE%/*}"
+BASEPATH=`dirname $0`
 DOMAIN=$1
 
 # Pull the Docker images of the relevant tools
