@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
 BASEPATH=`dirname $0`
+# Convert the script's path to absolute path.
+BASEPATH=$(cd -- "$BASEPATH" && pwd)
 DOMAIN=$1
 
 # Pull the Docker images of the relevant tools
