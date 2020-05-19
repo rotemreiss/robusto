@@ -31,6 +31,7 @@ For example, if there were results, the file will contain something like:
 
 ## Hooks/Integrations
 The scanner is built in a flexible way that allows the user to trigger integrations once results have been found.
+Just add a file named `_found_hook` in the hooks directory and do all the integrations you want there. This file will automatically be executed once vulnerable subdomains have been found.
 
 See the `hooks` directory for examples like automated Jira ticketing on new results.
 
