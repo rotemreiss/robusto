@@ -15,7 +15,7 @@ pull_docker_images() {
 
 update_scanner() {
   # Update the submodule nuclei-templates
-  git submodule update --remote -q
+  (cd "${BASEPATH}" && git submodule update --remote -q)
 
   # Pull our docker images
   pull_docker_images
@@ -34,7 +34,7 @@ run_httprobe () {
 }
 
 run_nuclei () {
-  docker run -v ${BASEPATH}/nuclei-templates:/go/src/app/ -i rotemreiss/nuclei -t ./subdomain-takeover/detect-all-takeovers.yaml
+  docker run -v "${BASEPATH}/nuclei-templates:/go/src/app/" -i rotemreiss/nuclei -t ./subdomain-takeover/detect-all-takeovers.yaml
 }
 
 scan() {
