@@ -1,4 +1,6 @@
-# Subdomains Takeover Scanner
+# RobuSTO
+*Robust-Subdomain-Takeover*
+
 Get a domain, enumerate subdomains and then search for subdomain takeovers.
 
 ## How is it different from other tools?
