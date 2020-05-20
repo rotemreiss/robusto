@@ -1,2 +1,5 @@
 .idea
 results.txt
+
+# Allows you to put your domains.txt here without making Git dirty!
+domains.txt

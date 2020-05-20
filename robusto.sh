@@ -24,7 +24,7 @@ update_scanner() {
 }
 
 run_subfinder () {
-  docker run -v $HOME/.config/subfinder:/root/.config/subfinder -i ice3man/subfinder -d ${DOMAIN}
+  cat "${1:-/dev/stdin}" | docker run -v $HOME/.config/subfinder:/root/.config/subfinder -i ice3man/subfinder
 }
 
 run_dnsprobe () {

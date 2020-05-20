@@ -1,5 +1,5 @@
 # RobuSTO
-*Robust-Subdomain-Takeover*
+:collision:*Robust-Subdomain-Takeover*:collision:
 
 Get a domain, enumerate subdomains and then search for subdomain takeovers.
 
@@ -14,6 +14,19 @@ The tool was also built as **"CI-Ready"** (see more about it below).
 - Prerequisites
   - Docker
 - Clone the repository with `git clone --recursive` (the recursive flag will also clone the Git submodule - nuclei-templates) 
+
+## Usage
+RobuSTO supports both single/multiple domain(s).
+
+- Single domain
+```bash
+echo "domain.com" > ./robusto.sh
+```
+
+- Multiple domains
+```bash
+cat domains.txt > ./robusto.sh
+```
 
 ## Using the Results
 - Results are saved to results.txt
@@ -49,6 +62,17 @@ Feel free to fork the repository and submit pull-requests.
 ## Support
 
 Want to say thanks? :) Message me on <a href="https://www.linkedin.com/in/reissr" target="_blank">Linkedin</a>
+
+---
+
+## Credits
+RobuSTO relies on the following great tools:
+- https://github.com/projectdiscovery/subfinder
+- https://github.com/projectdiscovery/dnsprobe
+- https://github.com/projectdiscovery/nuclei
+- https://github.com/tomnomnom/httprobe
+
+Thanks for @tomnomnom and @projectdiscovery! :heart:
 
 ---
 
