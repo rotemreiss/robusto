@@ -40,7 +40,7 @@ run_nuclei () {
 }
 
 scan() {
-  run_subfinder | run_dnsprobe | run_httprobe | run_nuclei > results.txt
+  run_subfinder | run_dnsprobe | sort -u | run_httprobe | run_nuclei > results.txt
 }
 
 # Run our found_hook to allow integrations
