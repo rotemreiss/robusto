@@ -20,12 +20,12 @@ RobuSTO supports both single/multiple domain(s).
 
 - Single domain
 ```bash
-echo "domain.com" > ./robusto.sh
+echo "domain.com" | ./robusto.sh
 ```
 
 - Multiple domains
 ```bash
-cat domains.txt > ./robusto.sh
+cat domains.txt | ./robusto.sh
 ```
 
 ## Using the Results
