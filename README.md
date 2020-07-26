@@ -13,7 +13,7 @@ The tool was also built as **"CI-Ready"** (see more about it below).
 ## Installation
 - Prerequisites
   - Docker
-- Clone the repository with `git clone --recursive` (the recursive flag will also clone the Git submodule - nuclei-templates) 
+- Clone the repository with `git clone --recursive https://github.com/rotemreiss/robusto.git` (the recursive flag will also clone the Git submodule - nuclei-templates) 
 
 ## Usage
 RobuSTO supports both single/multiple domain(s).
