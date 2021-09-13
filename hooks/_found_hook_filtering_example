@@ -7,7 +7,6 @@ BASEPATH=$(cd -- "$BASEPATH" && pwd)
 main () {
   # Init some helper files.
   echo "" > ${BASEPATH}/../non-hijackables.txt
-  echo "" > ${BASEPATH}/../elasticbeanstalk.txt
 
   # Iterate over the results and take different actions according to template/severity.
   while read result; do
