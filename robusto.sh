@@ -5,42 +5,17 @@ BASEPATH=`dirname $0`
 BASEPATH=$(cd -- "$BASEPATH" && pwd)
 DOMAIN=$1
 
-# Pull the Docker images of the relevant tools
-pull_docker_images() {
-  docker pull ice3man/subfinder
-
-  # @todo Replace with the offical images once released.
-  docker pull -q rotemreiss/nuclei
-  docker pull -q rotemreiss/dnsprobe
-  docker pull -q rotemreiss/httprobe
-}
-
 update_scanner() {
-  # Update the submodule nuclei-templates
-  (cd "${BASEPATH}" && git submodule update --remote -q)
+  # Install/update binaries.
+  GO111MODULE=on go get -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei
 
-  # Pull our docker images
-  pull_docker_images
-}
-
-run_subfinder () {
-  cat "${1:-/dev/stdin}" | docker run -v $HOME/.config/subfinder:/root/.config/subfinder -i ice3man/subfinder
-}
-
-run_dnsprobe () {
-  docker run -i rotemreiss/dnsprobe -silent -f domain
-}
-
-run_httprobe () {
-  docker run -i rotemreiss/httprobe -prefer-https
-}
-
-run_nuclei () {
-  docker run -v "${BASEPATH}/nuclei-templates:/go/src/app/" -i rotemreiss/nuclei -t ./subdomain-takeover/detect-all-takeovers.yaml
+  # Update Nuclei templates.
+  nuclei -ut -silent
 }
 
 scan() {
-  run_subfinder | run_dnsprobe | sort -u | run_httprobe | run_nuclei > results.txt
+  cat "${1:-/dev/stdin}" |\
+    nuclei -silent -nc -tags takeover > results.txt
 }
 
 # Run our found_hook to allow integrations

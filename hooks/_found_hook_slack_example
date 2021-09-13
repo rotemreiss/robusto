@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+ ################################################################################
+#                                                                                #
+# Send Slack notification for found subdomain takeovers.                         #
+# Requires https://github.com/projectdiscovery/notify.                           #
+#                                                                                #
+ ################################################################################
+
+BASEPATH=`dirname $0`
+# Convert the script's path to absolute path.
+BASEPATH=$(cd -- "$BASEPATH" && pwd)
+
+main () {
+
+  # Iterate over the results and send Slack notification per result.
+  while read result; do
+    if [ ! -z "$result" ]; then
+      # Send Slack notification with `notify`
+      echo "${result}" | notify
+    fi
+  done <${BASEPATH}/../results.txt
+}
+
+main

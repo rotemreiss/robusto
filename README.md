@@ -1,7 +1,7 @@
 # RobuSTO
 :collision:*Robust-Subdomain-Takeover*:collision:
 
-Get a domain, enumerate subdomains and then search for subdomain takeovers.
+Get a list of domains and search for subdomain takeovers.
 
 ## How is it different from other tools?
 This tools was build around the idea of automating the process, and allow blue-teams to use it to scan their own assets.
@@ -12,8 +12,8 @@ The tool was also built as **"CI-Ready"** (see more about it below).
 
 ## Installation
 - Prerequisites
-  - Docker
-- Clone the repository with `git clone --recursive https://github.com/rotemreiss/robusto.git` (the recursive flag will also clone the Git submodule - nuclei-templates) 
+  - [Nuclei](https://github.com/projectdiscovery/nuclei)
+- Clone the repository with `git clone https://github.com/rotemreiss/robusto.git` 
 
 ## Usage
 RobuSTO supports both single/multiple domain(s).
@@ -25,7 +25,7 @@ echo "domain.com" | ./robusto.sh
 
 - Multiple domains
 ```bash
-cat domains.txt | ./robusto.sh
+cat domains-tmp.txt | ./robusto.sh
 ```
 
 ## Using the Results
@@ -43,13 +43,15 @@ For example, if there were results, the file will contain something like:
 ```
 
 ## Hooks/Integrations
-The scanner is built in a flexible way that allows the user to trigger integrations once results have been found.
+The scanner is flexible and allows the user to trigger integrations once results have been found.
 Just add a file named `_found_hook` in the hooks directory and do all the integrations you want there. This file will automatically be executed once vulnerable subdomains have been found.
 
-See the `hooks` directory for examples like automated Jira ticketing on new results.
+See the `hooks` directory for examples, such as:
+- Jira integration
+- Slack integration
 
 More integration suggestions (not shipped with the scanner, but contributions are welcome):
-- Slack/Teams/..
+- MS Teams
 - Email
 - SMS
 
@@ -61,18 +63,15 @@ Feel free to fork the repository and submit pull-requests.
 
 ## Support
 
-Want to say thanks? :) Message me on <a href="https://www.linkedin.com/in/reissr" target="_blank">Linkedin</a>
+Want to say thanks? :) Message me on [Linkedin](https://www.linkedin.com/in/reissr)
 
 ---
 
 ## Credits
 RobuSTO relies on the following great tools:
-- https://github.com/projectdiscovery/subfinder
-- https://github.com/projectdiscovery/dnsprobe
 - https://github.com/projectdiscovery/nuclei
-- https://github.com/tomnomnom/httprobe
 
-Thanks for @tomnomnom and @projectdiscovery! :heart:
+Thanks to @projectdiscovery! :heart:
 
 ---
 
