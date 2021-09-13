@@ -1,0 +1,51 @@
+#!/usr/bin/env sh
+
+BASEPATH=`dirname $0`
+# Convert the script's path to absolute path.
+BASEPATH=$(cd -- "$BASEPATH" && pwd)
+
+main () {
+  # Init some helper files.
+  echo "" > ${BASEPATH}/../non-hijackables.txt
+  echo "" > ${BASEPATH}/../elasticbeanstalk.txt
+
+  # Iterate over the results and take different actions according to template/severity.
+  while read result; do
+    if [ ! -z "$result" ]; then
+      # Extract the subdomain from the result
+      subdomain=`echo ${result} | awk '{ print $6 }'`
+      subdomain=`basename ${subdomain}`
+      template=`echo ${result} | awk '{ print $3 }' | sed 's/[][]//g'`
+      severity=`echo ${result} | awk '{ print $5 }' | sed 's/[][]//g'`
+      target=`echo ${result} | awk '{ print $7 }' | sed 's/[][]//g'`
+
+      # For dangling cname issues - skip common false positives.
+      if [[ $template == 'detect-dangling-cname' ]]
+       then
+         [[ $target == *internal. ]] ||\
+         [[ $target == *local. ]]
+         then
+          # Skip internal domains.
+          echo "[-] Skipping internal reference - ${target}"
+          continue
+        elif [[ $target == *cloudapp.net. ]] ||\
+          [[ $target == *elasticbeanstalk.com. ]]; then
+          # Skip since should be found by another Nuclei template.
+          continue
+        elif [[ $target == *elb.amazonaws.com. ]]; then
+          # Log and skip CNAMES pointing to non-hijackable providers.
+          echo $result >> ${BASEPATH}/../non-hijackables.txt
+          continue
+        else
+          # Do something for dangling DNS.
+          echo "[+] Check ${subdomain} [${target}]"
+        fi
+      else
+        # Do something for all other takeover issues (higher certainty of detection).
+        echo "[+] ${result} is hijackable"
+      fi
+    fi
+  done <${BASEPATH}/../results.txt
+}
+
+main
